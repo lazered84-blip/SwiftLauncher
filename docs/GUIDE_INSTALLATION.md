@@ -8,7 +8,7 @@ Ce guide couvre trois usages : préparer son poste de développement, lancer le 
 
 | Outil | Version minimale | Vérification |
 |---|---|---|
-| Node.js | 20 LTS | `node -v` |
+| Node.js | 22.12 ou plus (requis par vitest 5 et vite 8) | `node -v` |
 | npm | 10+ | `npm -v` |
 | Rust (rustup) | stable récent | `rustc -V` |
 | Cargo | fourni avec Rust | `cargo -V` |

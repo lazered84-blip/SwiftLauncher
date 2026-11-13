@@ -5,6 +5,30 @@ Chaque entrée indique la date, la version, les changements (Ajouté / Modifié 
 
 ---
 
+## [0.1.0-alpha.6] — 2026-11-13 — Dépendances frontend et CI (run #3)
+
+### Contexte
+Run #3 de la CI : `frontend` en échec en 11 s. Reproduit en clonant le dépôt public : `npm ci` échouait (conflit de dépendances, ERESOLVE). Le `package.json` du dépôt demandait `vite ^8.3.8` et `vitest ^5.1.0` (montée de version issue d'un `npm audit fix --force`) alors que `@vitejs/plugin-react ^4` n'accepte pas vite 8. Les jobs `backend` exécutent aussi `npm ci` avant Rust : ils échouaient très probablement à la même étape, donc le code Rust n'a toujours pas été compilé par la CI.
+
+### Corrigé
+- `package.json` : `@vitejs/plugin-react` passé à `^6.3.0` (compatible vite 8). Versions retenues : vite 8.3.8, vitest 5.1.0.
+- `package-lock.json` régénéré.
+- `vite.config.ts` : retrait de `build.minify: "esbuild"` (vite 8 n'inclut plus esbuild : le build échouait avec « Cannot find package 'esbuild' »).
+- `.github/workflows/ci.yml` : Node 20 → Node 22 (vitest 5 exige Node >= 22.12). YAML validé avec PyYAML.
+- `docs/GUIDE_INSTALLATION.md` : prérequis Node 22.12+.
+
+### Vérifications effectuées
+- `npm ci`, `tsc --noEmit`, `vitest run` (9/9), `vite build` : OK avec ces versions. `npm audit` : 0 vulnérabilité.
+- Backend Rust : toujours non compilé.
+
+### Nettoyage conseillé (dépôt GitHub)
+- Copies parasites à la racine du dépôt : `Cargo.toml`, `build.rs`, `tauri.conf.json`, `capabilities/` (doublons de `src-tauri/`, anciennes versions). À supprimer avec `git rm`.
+
+### Reste à faire
+- Relancer la CI et corriger les erreurs de compilation Rust qui apparaîtront.
+
+---
+
 ## [0.1.0-alpha.5] — 2026-11-13 — Correctifs CI (icônes, vérifications non bloquantes)
 
 ### Contexte
