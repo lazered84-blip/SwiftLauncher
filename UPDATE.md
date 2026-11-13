@@ -8,7 +8,10 @@ Chaque entrée indique la date, la version, les changements (Ajouté / Modifié 
 ## [0.1.0-alpha.5] — 2026-11-13 — Correctifs CI (icônes, vérifications non bloquantes)
 
 ### Contexte
-Premier run de la CI GitHub : échec. Journal non encore consulté ; deux causes très probables corrigées d'avance.
+Les runs #1 et #2 de la CI GitHub ont échoué. **Cause réelle (lue dans les annotations du run) : `ci.yml` était un YAML invalide** (ligne 40, `requis : Tauri` : deux-points suivi d'un espace dans un nom d'étape non guillemeté). Aucun job n'a démarré. Les icônes et `fmt`/`clippy` ci-dessous restent des corrections utiles, mais n'étaient pas la cause de ces deux échecs.
+
+### Corrigé
+- `.github/workflows/ci.yml` : nom d'étape guillemeté. Fichier validé avec un parseur YAML (PyYAML) avant livraison. Règle pour la suite : toute modification d'un workflow est validée par un parseur YAML avant d'être livrée.
 
 ### Ajouté
 - **Icônes provisoires** dans `src-tauri/icons/` (carré arrondi bleu clair et triangle « lecture », créés pour le projet, sans élément Minecraft) : `32x32.png`, `128x128.png`, `128x128@2x.png`, `icon.png`, `icon.ico`, `icon.icns`. À remplacer par le vrai logo avec `npm run tauri icon <logo.png>`.

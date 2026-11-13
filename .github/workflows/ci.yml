@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - name: Frontend (requis : Tauri embarque dist/ à la compilation)
+      - name: "Frontend (requis car Tauri embarque dist/ à la compilation)"
         run: |
           npm ci
           npm run build
