@@ -1,0 +1,25 @@
+# Dépendances et builds
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Secrets : ne jamais committer
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+
+# Données locales de test
+*.sqlite
+*.sqlite-journal
+.launcher-data/
+
+# Système et éditeur
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
