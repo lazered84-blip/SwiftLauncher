@@ -5,6 +5,28 @@ Chaque entrée indique la date, la version, les changements (Ajouté / Modifié 
 
 ---
 
+## [0.1.0-alpha.5] — 2026-11-13 — Correctifs CI (icônes, vérifications non bloquantes)
+
+### Contexte
+Premier run de la CI GitHub : échec. Journal non encore consulté ; deux causes très probables corrigées d'avance.
+
+### Ajouté
+- **Icônes provisoires** dans `src-tauri/icons/` (carré arrondi bleu clair et triangle « lecture », créés pour le projet, sans élément Minecraft) : `32x32.png`, `128x128.png`, `128x128@2x.png`, `icon.png`, `icon.ico`, `icon.icns`. À remplacer par le vrai logo avec `npm run tauri icon <logo.png>`.
+
+### Modifié
+- `src-tauri/tauri.conf.json` : `bundle.icon` référence les icônes (la compilation Tauri les exige, en particulier `icon.ico` sous Windows).
+- `.github/workflows/ci.yml` : `cargo fmt --check` et `cargo clippy` passent en `continue-on-error` (le code n'a pas pu être formaté avec rustfmt dans l'environnement de génération). La compilation et `cargo test` restent bloquants. À rétablir en bloquant une fois `cargo fmt` appliqué et les avertissements clippy corrigés.
+
+### Risques connus
+- Sous Windows, `cargo test` sur un crate Tauri peut échouer au lancement des tests (`STATUS_ENTRYPOINT_NOT_FOUND`, manifeste Windows absent du binaire de test). Non confirmé ici ; à traiter seulement si la CI le montre.
+- Le code Rust reste non compilé : d'autres erreurs sont probables.
+
+### Reste à faire
+- Lire le journal du job en échec et corriger les erreurs de compilation.
+- Puis : `cargo fmt`, corrections clippy, remise en bloquant de ces deux étapes.
+
+---
+
 ## [0.1.0-alpha.4] — 2026-11-13 — Mode démonstration dans le navigateur
 
 ### Ajouté

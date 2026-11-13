@@ -28,7 +28,13 @@
   "bundle": {
     "active": true,
     "targets": "all",
-    "icon": [],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
     "category": "Game",
     "shortDescription": "Launcher Minecraft indépendant",
     "longDescription": "Launcher Minecraft gratuit, non affilié à Mojang ni à Microsoft. Minecraft est une marque déposée de Mojang Synergies AB."
